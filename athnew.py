@@ -134,3 +134,18 @@ for i, stock_data in enumerate(results_sorted, start=1):
         print(f"Error plotting {ticker}: {e}")
 
 print(f"✅ Saved {len(results_sorted)} candlestick charts to '{output_folder}'")
+
+# ==== Open folder automatically ====
+import sys
+import subprocess
+try:
+    if os.name == 'nt':  # Windows
+        os.startfile(output_folder)
+    elif os.name == 'posix':  # macOS or Linux
+        import subprocess
+        if sys.platform == "darwin":  # macOS
+            subprocess.run(["open", output_folder])
+        else:  # Linux
+            subprocess.run(["xdg-open", output_folder])
+except Exception as e:
+    print(f"Could not open folder automatically: {e}")
